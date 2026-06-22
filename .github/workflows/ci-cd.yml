@@ -125,7 +125,8 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd /opt/talenttrack
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
             docker compose up -d --build --remove-orphans
             docker compose ps
             echo "✅ Deployment complete!"
