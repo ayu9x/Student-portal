@@ -105,28 +105,29 @@ jobs:
 
   # ==========================================
   # Job 3: Deploy (Optional)
+  # Uncomment this job when you have set up your VPS and added the secrets
   # ==========================================
-  deploy:
-    name: 🚀 Deploy
-    runs-on: ubuntu-latest
-    needs: build-docker
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    environment: production
-
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🚀 Deploy to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          script: |
-            cd /opt/talenttrack
-            git pull origin main
-            docker compose pull
-            docker compose up -d --remove-orphans
-            docker compose ps
-            echo "✅ Deployment complete!"
+  # deploy:
+  #   name: 🚀 Deploy
+  #   runs-on: ubuntu-latest
+  #   needs: build-docker
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   environment: production
+  # 
+  #   steps:
+  #     - name: 📥 Checkout code
+  #       uses: actions/checkout@v4
+  # 
+  #     - name: 🚀 Deploy to server
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.DEPLOY_HOST }}
+  #         username: ${{ secrets.DEPLOY_USER }}
+  #         key: ${{ secrets.DEPLOY_KEY }}
+  #         script: |
+  #           cd /opt/talenttrack
+  #           git pull origin main
+  #           docker compose pull
+  #           docker compose up -d --remove-orphans
+  #           docker compose ps
+  #           echo "✅ Deployment complete!"
